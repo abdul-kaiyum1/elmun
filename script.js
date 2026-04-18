@@ -209,7 +209,7 @@ you’ve become really special to me...`);
 
 /* ================= COUNTDOWN ================= */
 
-const targetDate = new Date("April 21, 2026 00:00:00").getTime();
+const targetDate = new Date("April 1, 2026 00:00:00").getTime();
 let started = false;
 
 setInterval(() => {
