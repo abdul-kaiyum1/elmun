@@ -4,16 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For Elmun 💙</title>
-
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
-
 <body>
 
     <canvas id="particles"></canvas>
-
     <button id="music-btn" onclick="toggleMusic()">🎵 Play Music</button>
 
     <div id="countdown" class="screen active">
@@ -30,26 +27,37 @@
     </div>
 
     <div id="birthday" class="screen">
-        <h1 class="glow-text title-text">Happy Birthday, Elmun!</h1>
-        
-        <div class="css-cake" onclick="blowCake()">
+        <h1 class="glow-text title-text">Make a Wish! 🎂</h1>
+        <div class="css-cake" onclick="blowCandle()">
             <div class="layer bottom-layer"></div>
             <div class="layer middle-layer"></div>
             <div class="layer top-layer"></div>
             <div class="candle"></div>
             <div class="flame" id="cake-flame"></div>
         </div>
+        <p class="click-hint" id="hint-text">Click the flame to blow it!</p>
+    </div>
 
-        <p class="click-hint" id="hint-text">Click the flame to blow the candle!</p>
-
-        <div class="buttons">
+    <div id="cake-cutting" class="screen">
+        <h1 class="glow-text title-text">Time to Cut the Cake! 🔪</h1>
+        <div class="cake-container" onclick="cutCake()">
+            <div id="knife" class="knife">🔪</div>
+            <div class="cake-main">
+                <div class="layer bottom-layer"></div>
+                <div class="layer middle-layer"></div>
+                <div class="layer top-layer"></div>
+                <div id="cake-slice" class="slice-line"></div>
+            </div>
+        </div>
+        <p class="click-hint">Click the cake to cut a slice!</p>
+        
+        <div class="buttons" id="gift-buttons" style="display: none; margin-top: 30px;">
             <div class="btn envelope" onclick="openModal(0)">Envelope 1 💌</div>
             <div class="btn envelope" onclick="openModal(1)">Envelope 2 ✨</div>
             <div class="btn envelope" onclick="openModal(2)">Envelope 3 🚀</div>
             <div class="btn special" onclick="openModal(3)">The Final Secret 🤫</div>
         </div>
-
-        <button class="final-btn" onclick="goFinal()">Final Surprise 💖</button>
+        <button class="final-btn" id="final-trigger" style="display: none;" onclick="goFinal()">Final Surprise 💖</button>
     </div>
 
     <div id="modal">
@@ -66,7 +74,6 @@
     </div>
 
     <audio id="music" src="until-i-found-you.mp3" loop></audio>
-
     <script src="script.js"></script>
 </body>
 </html>
