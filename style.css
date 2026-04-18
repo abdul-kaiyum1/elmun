@@ -1,474 +1,235 @@
-/* =========================================
-   GLOBAL & BACKGROUND
-========================================= */
+/* ================= BASE ================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-    margin: 0;
-    padding: 0;
-    background: radial-gradient(circle at center, #1b0030 0%, #050010 60%, #000000 100%);
-    color: white;
-    font-family: 'Poppins', sans-serif;
-    overflow: hidden; 
-    height: 100vh;
-    width: 100vw;
+  background: radial-gradient(circle at top, #0a0a0a, #000);
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
 }
 
-/* =========================================
-   TYPOGRAPHY
-========================================= */
-.orbitron-font {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 2.8rem;
-    letter-spacing: 2px;
-    color: #00ffcc;
-    text-shadow: 0 0 15px #00ffcc, 0 0 30px #00aaff;
-}
+/* ================= PARTICLES ================= */
 
-.glow-text { 
-    text-shadow: 0 0 15px #ff4d6d, 0 0 30px #ff4d6d; 
-}
-
-.title-text {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 3rem;
-    z-index: 10;
-    margin-top: 10px;
-    margin-bottom: 15px;
-    position: relative;
-}
-
-/* =========================================
-   MUSIC BUTTON
-========================================= */
-#music-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid #00ffcc;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 25px;
-    cursor: pointer;
-    z-index: 1000;
-    backdrop-filter: blur(5px);
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-#music-btn:hover {
-    background: rgba(0, 255, 204, 0.3);
-    box-shadow: 0 0 15px #00ffcc;
-    transform: scale(1.05);
-}
-
-/* =========================================
-   PARTICLES & STARDUST
-========================================= */
 #particles {
-    position: fixed;
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%; 
-    z-index: -2;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
 
-.stardust {
-    position: fixed; 
-    width: 6px; 
-    height: 6px; 
-    background: #fff;
-    border-radius: 50%; 
-    box-shadow: 0 0 12px #00ffcc, 0 0 20px #ff4d6d;
-    pointer-events: none; 
-    animation: fadeOut 1s forwards; 
-    z-index: 9999;
-}
+/* ================= SCREEN SYSTEM ================= */
 
-@keyframes fadeOut {
-    0% { opacity: 1; transform: scale(1) translateY(0); }
-    100% { opacity: 0; transform: scale(0) translateY(20px); }
-}
-
-/* =========================================
-   SCREENS CONFIGURATION
-========================================= */
 .screen {
-    position: absolute;
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%;
-    display: flex; 
-    justify-content: center; 
-    align-items: center;
-    flex-direction: column; 
-    text-align: center;
-    opacity: 0; 
-    pointer-events: none; 
-    transition: opacity 1.2s ease-in-out;
-    overflow-y: auto; 
-    overflow-x: hidden; 
-    box-sizing: border-box;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+
+  opacity: 0;
+  pointer-events: none;
+
+  transition: opacity 1s ease, transform 1s ease;
+  transform: scale(1.05);
 }
 
-.screen.active { 
-    opacity: 1; 
-    pointer-events: auto; 
+.screen.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
 }
 
-#terminal { 
-    color: #00ffcc; 
-    font-family: monospace; 
-    font-size: 1.4rem; 
-    text-shadow: 0 0 5px #00ffcc;
+/* ================= COUNTDOWN ================= */
+
+#countdown h1 {
+  font-size: 2rem;
+  color: #ff4d6d;
+  text-shadow: 0 0 20px #ff4d6d;
 }
 
-/* =========================================
-   CSS ANIMATED CAKE
-========================================= */
-.css-cake {
-    position: relative;
-    width: 240px; 
-    height: 220px;
-    margin: 10px auto 20px auto;
-    z-index: 10; 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center;
-    flex-shrink: 0;
+#timer {
+  font-size: 1.8rem;
+  margin-top: 15px;
+  letter-spacing: 2px;
 }
 
-.layer {
-    position: absolute; 
-    background: #f9d29d; 
-    border-radius: 10px;
-    box-shadow: inset 0 -5px 10px rgba(0,0,0,0.2); 
-    opacity: 0;
+/* ================= LOADER ================= */
+
+#terminal {
+  color: #00ffcc;
+  font-family: monospace;
+  font-size: 14px;
+  text-shadow: 0 0 10px #00ffcc;
 }
 
-.layer::before {
-    content: ''; 
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-    right: 0; 
-    height: 25px;
-    background: #5c3a21; 
-    border-radius: 10px 10px 0 0;
+/* ================= MESSAGE ================= */
+
+#message h2 {
+  font-size: 1.6rem;
+  max-width: 80%;
+  line-height: 1.6;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255,255,255,0.2);
 }
 
-.layer::after {
-    content: ''; 
-    position: absolute; 
-    top: 24px; 
-    left: 0; 
-    right: 0; 
-    height: 15px;
-    background: radial-gradient(circle at 12px 0, transparent 12px, #5c3a21 13px);
-    background-size: 24px 15px; 
+/* ================= BIRTHDAY ================= */
+
+#birthday h1 {
+  font-size: 2.2rem;
+  text-shadow: 0 0 20px #ff4d6d;
+  animation: glow 2s infinite alternate;
 }
 
-.bottom-layer {
-    width: 240px; 
-    height: 80px; 
-    bottom: 0; 
-    left: 0;
-    animation: riseUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 0.5s;
+@keyframes glow {
+  from { text-shadow: 0 0 10px #ff4d6d; }
+  to { text-shadow: 0 0 30px #ff4d6d; }
 }
 
-.middle-layer {
-    width: 192px; 
-    height: 70px; 
-    bottom: 80px; 
-    left: 24px;
-    animation: riseUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 1s;
+/* ================= CAKE ================= */
+
+.cake {
+  font-size: 3rem;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.top-layer {
-    width: 144px; 
-    height: 60px; 
-    bottom: 150px; 
-    left: 48px;
-    animation: riseUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 1.5s;
+.cake:hover {
+  transform: scale(1.2) rotate(5deg);
 }
 
-.candle {
-    position: absolute; 
-    width: 14px; 
-    height: 40px;
-    background: repeating-linear-gradient(45deg, #fff, #fff 5px, #ff4d6d 5px, #ff4d6d 10px);
-    bottom: 210px; 
-    left: 113px;
-    border-radius: 3px; 
-    opacity: 0;
-    animation: riseUp 0.5s forwards 2s;
+/* ================= BUTTON GRID ================= */
+
+.buttons {
+  margin-top: 30px;
+  display: grid;
+  gap: 15px;
+  width: 80%;
+  max-width: 400px;
 }
 
-.flame {
-    position: absolute; 
-    width: 18px; 
-    height: 30px; 
-    background: #ffb703;
-    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; 
-    bottom: 255px; 
-    left: 111px;
-    opacity: 0;
-    box-shadow: 0 0 20px #ffb703, 0 0 40px #ffb703;
-    animation: lightUp 0.5s forwards 2.5s, flicker 0.2s infinite 3s alternate;
-    cursor: pointer;
+/* ================= GLASS BUTTON ================= */
+
+.btn {
+  padding: 14px;
+  border-radius: 15px;
+  cursor: pointer;
+
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255,255,255,0.2);
+
+  box-shadow: 0 0 10px rgba(255,77,109,0.2);
+
+  transition: all 0.3s ease;
 }
 
-.flame.out { 
-    animation: blowOut 0.5s forwards; 
+.btn:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 0 25px #ff4d6d;
 }
 
-@keyframes riseUp {
-    0% { transform: translateY(50px); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
-}
-@keyframes lightUp {
-    0% { transform: scale(0); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-}
-@keyframes flicker {
-    0% { transform: scale(1) rotate(-2deg); opacity: 1; }
-    100% { transform: scale(0.9) rotate(2deg); opacity: 0.8; }
-}
-@keyframes blowOut {
-    0% { transform: scale(1); opacity: 1; }
-    100% { transform: scale(0) translate(20px, -20px); opacity: 0; }
+/* SPECIAL BUTTON */
+
+.special {
+  border: 1px solid #ff4d6d;
+  box-shadow: 0 0 20px #ff4d6d;
 }
 
-/* Hint Text */
-.click-hint { 
-    font-size: 1rem; 
-    color: #00ffcc; 
-    margin-bottom: 20px; 
-    position: relative;
-    z-index: 10;
-    animation: pulse 1.5s infinite; 
-}
-@keyframes pulse { 
-    0%, 100% { opacity: 0.6; } 
-    50% { opacity: 1; text-shadow: 0 0 10px #00ffcc; } 
+/* ================= FINAL BUTTON ================= */
+
+.final-btn {
+  margin-top: 30px;
+  padding: 14px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+
+  border: 1px solid #ff4d6d;
+  background: transparent;
+
+  transition: 0.3s;
 }
 
-/* =========================================
-   BALLOONS
-========================================= */
-.balloon {
-    position: absolute; 
-    bottom: -150px; 
-    width: 50px; 
-    height: 65px;
-    border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%; 
-    cursor: pointer;
-    animation: floatUp linear infinite; 
-    box-shadow: inset -5px -5px 15px rgba(0,0,0,0.4); 
-    z-index: 5;
+.final-btn:hover {
+  background: #ff4d6d;
+  color: black;
 }
 
-.balloon::after {
-    content: ''; 
-    position: absolute; 
-    bottom: -30px; 
-    left: 50%; 
-    width: 2px; 
-    height: 30px; 
-    background: rgba(255, 255, 255, 0.4);
+/* ================= MODAL ================= */
+
+#modal {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0,0,0,0.7);
+
+  justify-content: center;
+  align-items: center;
+
+  backdrop-filter: blur(5px);
 }
 
-@keyframes floatUp {
-    0% { transform: translateY(0) rotate(-5deg); }
-    50% { transform: translateY(-60vh) rotate(5deg); }
-    100% { transform: translateY(-130vh) rotate(-5deg); }
+.modal-content {
+  padding: 25px;
+  border-radius: 20px;
+  max-width: 350px;
+
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255,255,255,0.1);
+
+  animation: pop 0.4s ease;
 }
 
-/* =========================================
-   BUTTONS (ENVELOPES)
-========================================= */
-.buttons { 
-    display: grid; 
-    grid-template-columns: 1fr 1fr; 
-    gap: 15px; 
-    z-index: 10; 
-    padding: 0 20px; 
-    max-width: 500px;
-    width: 100%;
-    margin: 0 auto;
+@keyframes pop {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
 
-.btn { 
-    padding: 12px 20px; 
-    border: 1px solid rgba(0, 255, 204, 0.5); 
-    background: rgba(0, 255, 204, 0.1); 
-    border-radius: 12px; 
-    cursor: pointer; 
-    transition: all 0.3s ease; 
-    font-weight: 600; 
-    backdrop-filter: blur(5px); 
+/* ================= FINAL SCENE ================= */
+
+#final h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  text-shadow: 0 0 15px rgba(255,255,255,0.3);
 }
 
-.btn:hover { 
-    background: rgba(0, 255, 204, 0.3); 
-    box-shadow: 0 0 20px rgba(0, 255, 204, 0.8); 
-    transform: translateY(-3px); 
+.heart {
+  font-size: 2.5rem;
+  animation: heartbeat 1s infinite;
 }
 
-.special { 
-    border: 1px solid #ff4d6d; 
-    background: rgba(255, 77, 109, 0.15); 
-    box-shadow: 0 0 15px rgba(255, 77, 109, 0.5); 
-    grid-column: span 2; 
+@keyframes heartbeat {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
 }
 
-.special:hover { 
-    background: rgba(255, 77, 109, 0.4); 
-    box-shadow: 0 0 30px #ff4d6d; 
-}
+/* ================= MOBILE ================= */
 
-.final-btn { 
-    margin-top: 25px; 
-    padding: 10px 20px; 
-    background: transparent; 
-    border: none; 
-    color: #ff4d6d; 
-    font-size: 1.2rem; 
-    text-decoration: underline; 
-    cursor: pointer; 
-    z-index: 10; 
-}
+@media(max-width:600px){
+  #birthday h1 {
+    font-size: 1.6rem;
+  }
 
-/* =========================================
-   MODAL BOX
-========================================= */
-#modal { 
-    display: none; 
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%; 
-    background: rgba(0, 0, 0, 0.85); 
-    justify-content: center; 
-    align-items: center; 
-    z-index: 5000; 
-    backdrop-filter: blur(12px); 
-}
+  #message h2 {
+    font-size: 1.3rem;
+  }
 
-.modal-content.glass { 
-    background: rgba(20, 20, 30, 0.8); 
-    padding: 40px; 
-    border-radius: 20px; 
-    border: 1px solid rgba(0, 255, 204, 0.4); 
-    box-shadow: 0 10px 50px rgba(0, 255, 204, 0.2); 
-    width: 85%; 
-    max-width: 600px; 
-    text-align: center; 
-    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; 
-}
-
-@keyframes popIn { 
-    from { transform: scale(0.7) translateY(50px); opacity: 0; } 
-    to { transform: scale(1) translateY(0); opacity: 1; } 
-}
-
-#modalTitle { 
-    margin-top: 0; 
-    font-size: 1.8rem; 
-    color: #ff4d6d; 
-    margin-bottom: 15px; 
-    font-family: 'Orbitron', sans-serif; 
-}
-
-#modalText { 
-    font-size: 1.2rem; 
-    line-height: 1.6; 
-    color: #e0e0e0; 
-    min-height: 120px; 
-    margin-bottom: 20px; 
-}
-
-.close-btn { 
-    padding: 12px 35px; 
-    background: linear-gradient(45deg, #ff4d6d, #ff0040); 
-    border: none; 
-    border-radius: 30px; 
-    color: white; 
-    cursor: pointer; 
-    font-weight: 600; 
-    box-shadow: 0 0 15px #ff4d6d; 
-    margin-top: 15px;
-}
-
-/* =========================================
-   FINAL SCREEN HEART
-========================================= */
-.heart { 
-    font-size: 6rem; 
-    animation: beat 1s infinite; 
-    margin-top: 30px; 
-}
-
-@keyframes beat { 
-    0%, 100% { transform: scale(1); } 
-    50% { transform: scale(1.3); text-shadow: 0 0 50px #ff4d6d; } 
-}
-
-/* =========================================
-   MOBILE FIXES
-========================================= */
-@media (max-width: 600px), (max-height: 750px) {
-    .screen.active {
-        justify-content: flex-start; 
-        padding-top: 60px; 
-        padding-bottom: 50px; 
-    }
-    #music-btn { 
-        top: 10px; 
-        right: 10px; 
-        padding: 8px 15px; 
-        font-size: 0.9rem; 
-    }
-    .title-text { 
-        font-size: 2.2rem; 
-        margin-top: 20px;
-    }
-    .css-cake { 
-        transform: scale(0.7); 
-        margin: -30px auto; 
-    }
-    .click-hint {
-        margin-top: -10px;
-        margin-bottom: 15px;
-        font-size: 0.95rem;
-    }
-    .buttons { 
-        grid-template-columns: 1fr; 
-        gap: 12px; 
-        width: 90%; 
-    }
-    .special { 
-        grid-column: span 1; 
-    }
-    .btn {
-        padding: 12px;
-        font-size: 1rem;
-    }
-    #modalTitle { 
-        font-size: 1.6rem; 
-    }
-    #modalText { 
-        font-size: 1.1rem; 
-        min-height: 140px; 
-    }
-    .modal-content.glass { 
-        padding: 30px 20px; 
-        width: 90%; 
-    }
-    .orbitron-font { 
-        font-size: 2rem; 
-    }
-}
+  .btn {
+    padding: 12px;
+  }
+   }
