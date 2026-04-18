@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For Elmun 💙</title>
+
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <script src="https://cdn.npmmirror.com/package/canvas-confetti/1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
+
 <body>
 
     <canvas id="particles"></canvas>
+
     <button id="music-btn" onclick="toggleMusic()">🎵 Play Music</button>
 
     <div id="countdown" class="screen active">
@@ -57,6 +60,7 @@
             <div class="btn envelope" onclick="openModal(2)">Envelope 3 🚀</div>
             <div class="btn special" onclick="openModal(3)">The Final Secret 🤫</div>
         </div>
+        
         <button class="final-btn" id="final-trigger" style="display: none;" onclick="goFinal()">Final Surprise 💖</button>
     </div>
 
@@ -74,6 +78,7 @@
     </div>
 
     <audio id="music" src="until-i-found-you.mp3" loop></audio>
+
     <script src="script.js"></script>
 </body>
 </html>
