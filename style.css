@@ -86,6 +86,8 @@ body {
     opacity: 0;
     pointer-events: none;
     transition: 1.2s;
+    overflow-y: auto; /* Allow scrolling on small screens */
+    box-sizing: border-box;
 }
 
 .screen.active {
@@ -232,7 +234,7 @@ body {
 }
 
 .modal-content.glass {
-    background: rgba(255,255,255,0.05);
+    background: rgba(20, 20, 30, 0.8);
     padding: 30px;
     border-radius: 20px;
     width: 85%;
@@ -264,9 +266,11 @@ body {
 }
 
 /* MOBILE RESPONSIVENESS */
-@media (max-width: 600px) {
+@media (max-width: 600px), (max-height: 750px) {
+    .screen.active { justify-content: flex-start; padding-top: 60px; padding-bottom: 50px; }
     .title-text { font-size: 1.8rem; }
     .css-cake, .cake-container { transform: scale(0.8); }
     .buttons { grid-template-columns: 1fr; }
     .special { grid-column: span 1; }
+    #modalText { font-size: 1.1rem; }
 }
