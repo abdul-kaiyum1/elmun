@@ -19,6 +19,7 @@ class Heart {
         this.speedY = Math.random() * 0.5 + 0.3;
         this.tx = null;
         this.ty = null;
+        this.color = null; // Store specific color for this heart
     }
     update() {
         if (forming && this.tx !== null) {
@@ -40,7 +41,9 @@ class Heart {
         ctx.bezierCurveTo(-5, 3, 0, 5, 0, 8);
         ctx.bezierCurveTo(0, 5, 5, 3, 5, 0);
         ctx.bezierCurveTo(5, -3, 0, -3, 0, 0);
-        ctx.fillStyle = forming ? "#ff0040" : "#ff4d6d";
+        
+        // Use custom color if set, otherwise default colors
+        ctx.fillStyle = forming ? (this.color || "#ff0040") : "#ff4d6d";
         ctx.fill();
         ctx.restore();
     }
@@ -71,18 +74,27 @@ document.addEventListener("mousemove", (e) => {
     }
 });
 
-/* NAME MAPPING (ELMUN) */
-function createTextPoints(text) {
+/* DYNAMIC TEXT MAPPING LOGIC (Supports 1 or 2 lines) */
+function createTextPoints(text1, text2 = null) {
     const temp = document.createElement("canvas");
     const t = temp.getContext("2d");
     temp.width = canvas.width; 
     temp.height = canvas.height;
     
-    let fontSize = Math.min(canvas.width / 5, 180);
+    let maxLen = text2 ? Math.max(text1.length, text2.length) : text1.length;
+    let fontSize = Math.min(canvas.width / (maxLen * 0.6), 150);
+    if (canvas.width < 600) fontSize = Math.min(canvas.width / (maxLen * 0.55), 100);
+    
     t.font = `bold ${fontSize}px Arial`;
     t.textAlign = "center"; 
     t.textBaseline = "middle";
-    t.fillText(text, canvas.width / 2, canvas.height / 2);
+    
+    if (text2) {
+        t.fillText(text1, canvas.width / 2, canvas.height / 2 - fontSize/1.2);
+        t.fillText(text2, canvas.width / 2, canvas.height / 2 + fontSize/1.2);
+    } else {
+        t.fillText(text1, canvas.width / 2, canvas.height / 2);
+    }
     
     const data = t.getImageData(0, 0, canvas.width, canvas.height).data;
     let pts = [];
@@ -107,6 +119,7 @@ function formName() {
         if (p) { 
             h.tx = p.x; 
             h.ty = p.y; 
+            h.color = "#ff0040"; // First time forming name uses standard red
         }
     });
     
@@ -115,6 +128,7 @@ function formName() {
         hearts.forEach(h => { 
             h.tx = null; 
             h.ty = null; 
+            h.color = null; // Reset color
         });
     }, 4500);
 }
@@ -210,7 +224,7 @@ function cutCake() {
     }, 600);
 }
 
-/* UPDATED EMOTIONAL MESSAGES */
+/* EMOTIONAL MESSAGES */
 const msgs = [
     "Distance is just a glitch in the matrix… 💫\nWho said online friends can’t be real?\n\nFrom random conversations to late-night talks, you’ve become someone really important to me.\n\nAnd honestly… I’m really glad I met you.",
     "Even without meeting in real life, you’ve become one of my favorite people.\n\nThanks for always listening to my random thoughts, for being there in your own way, and for just being… you.\n\nYou make things feel lighter.",
@@ -267,16 +281,46 @@ function spawnBalloons() {
     }
 }
 
-/* FINAL SURPRISE */
+/* THE GRAND FINAL SURPRISE WITH TWO COLORS */
 function goFinal() {
     document.getElementById("cake-cutting").classList.remove("active");
     document.getElementById("final").classList.add("active");
     
     let txt = "Happy Birthday Elmun! May our bond stay forever... 💙";
     let char = 0;
+    
     let t = setInterval(() => {
         document.getElementById("finalText").innerHTML += txt[char++];
-        if (char === txt.length) clearInterval(t);
+        if (char === txt.length) {
+            clearInterval(t);
+            
+            // Wait 2.5 seconds, hide the text, then reveal multi-color hearts
+            setTimeout(() => {
+                document.getElementById("finalText").style.transition = "opacity 1s";
+                document.getElementById("finalText").style.opacity = "0";
+                
+                let finalHeart = document.querySelector("#final .heart");
+                finalHeart.style.transition = "opacity 1s";
+                finalHeart.style.opacity = "0";
+                
+                // Form the final two lines of hearts
+                setTimeout(() => {
+                    forming = true;
+                    let rawPoints = createTextPoints("I LOVE YOU", "ELMUN");
+                    rawPoints.sort(() => Math.random() - 0.5); 
+                    
+                    hearts.forEach((h, i) => {
+                        let p = rawPoints[Math.floor(i * (rawPoints.length / hearts.length))];
+                        if (p) { 
+                            h.tx = p.x; 
+                            h.ty = p.y; 
+                            // If the point is in the top half, make it Red/Pink. If bottom half, make it Cyan!
+                            h.color = p.y < canvas.height / 2 ? "#ff0040" : "#00ffcc"; 
+                        }
+                    });
+                }, 1000);
+            }, 2500);
+        }
     }, 60);
 
     let end = Date.now() + 5000;
