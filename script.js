@@ -19,7 +19,6 @@ class Heart {
         this.speedY = Math.random() * 0.5 + 0.3;
         this.tx = null;
         this.ty = null;
-        this.color = null; // Store specific color for this heart
     }
     update() {
         if (forming && this.tx !== null) {
@@ -41,9 +40,7 @@ class Heart {
         ctx.bezierCurveTo(-5, 3, 0, 5, 0, 8);
         ctx.bezierCurveTo(0, 5, 5, 3, 5, 0);
         ctx.bezierCurveTo(5, -3, 0, -3, 0, 0);
-        
-        // Use custom color if set, otherwise default colors
-        ctx.fillStyle = forming ? (this.color || "#ff0040") : "#ff4d6d";
+        ctx.fillStyle = forming ? "#ff0040" : "#ff4d6d";
         ctx.fill();
         ctx.restore();
     }
@@ -74,7 +71,7 @@ document.addEventListener("mousemove", (e) => {
     }
 });
 
-/* DYNAMIC TEXT MAPPING LOGIC (Supports 1 or 2 lines) */
+/* DYNAMIC TEXT MAPPING LOGIC */
 function createTextPoints(text1, text2 = null) {
     const temp = document.createElement("canvas");
     const t = temp.getContext("2d");
@@ -119,7 +116,6 @@ function formName() {
         if (p) { 
             h.tx = p.x; 
             h.ty = p.y; 
-            h.color = "#ff0040"; // First time forming name uses standard red
         }
     });
     
@@ -128,7 +124,6 @@ function formName() {
         hearts.forEach(h => { 
             h.tx = null; 
             h.ty = null; 
-            h.color = null; // Reset color
         });
     }, 4500);
 }
@@ -232,6 +227,9 @@ const msgs = [
     "There’s something I don’t say enough…\n\nYou mean a lot to me.\n\nMore than just a friend, more than just someone I talk to.\n\nThank you for being in my life…\nI love you ❤️"
 ];
 
+// FIX: Added a global variable to keep track of the typing interval
+let typeInterval;
+
 function openModal(i) {
     document.getElementById("modal").style.display = "flex";
     document.getElementById("modalTitle").innerHTML = ["Friendship 💌", "Comfort ✨", "Wishes 🚀", "Secret 🤫"][i];
@@ -239,16 +237,30 @@ function openModal(i) {
     let target = document.getElementById("modalText");
     let char = 0;
     let txt = msgs[i];
-    target.innerHTML = "";
+    target.innerHTML = ""; // Clear old text
+    
+    // FIX: Clear any existing animation before starting a new one
+    clearInterval(typeInterval);
 
-    let t = setInterval(() => {
-        target.innerHTML += txt[char++];
-        if (char === txt.length) clearInterval(t);
+    // FIX: Convert \n to HTML line breaks so it looks exactly like your formatted text
+    typeInterval = setInterval(() => {
+        if (txt[char] === '\n') {
+            target.innerHTML += "<br>";
+        } else {
+            target.innerHTML += txt[char];
+        }
+        char++;
+        
+        if (char === txt.length) {
+            clearInterval(typeInterval);
+        }
     }, 30);
 }
 
 function closeModal() {
     document.getElementById("modal").style.display = "none";
+    // FIX: Stop typing if the modal is closed early!
+    clearInterval(typeInterval);
 }
 
 /* MUSIC TOGGLE */
@@ -281,7 +293,7 @@ function spawnBalloons() {
     }
 }
 
-/* THE GRAND FINAL SURPRISE WITH TWO COLORS */
+/* THE GRAND FINAL SURPRISE */
 function goFinal() {
     document.getElementById("cake-cutting").classList.remove("active");
     document.getElementById("final").classList.add("active");
@@ -294,7 +306,6 @@ function goFinal() {
         if (char === txt.length) {
             clearInterval(t);
             
-            // Wait 2.5 seconds, hide the text, then reveal multi-color hearts
             setTimeout(() => {
                 document.getElementById("finalText").style.transition = "opacity 1s";
                 document.getElementById("finalText").style.opacity = "0";
@@ -303,7 +314,6 @@ function goFinal() {
                 finalHeart.style.transition = "opacity 1s";
                 finalHeart.style.opacity = "0";
                 
-                // Form the final two lines of hearts
                 setTimeout(() => {
                     forming = true;
                     let rawPoints = createTextPoints("I LOVE YOU", "ELMUN");
@@ -314,8 +324,6 @@ function goFinal() {
                         if (p) { 
                             h.tx = p.x; 
                             h.ty = p.y; 
-                            // If the point is in the top half, make it Red/Pink. If bottom half, make it Cyan!
-                            h.color = p.y < canvas.height / 2 ? "#ff0040" : "#00ffcc"; 
                         }
                     });
                 }, 1000);
